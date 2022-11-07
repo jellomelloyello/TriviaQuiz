@@ -1,13 +1,9 @@
-const quizCategories = ["Food", "Slangs", "General Knowledge"]
-
 let currentQuestion = 0; // start count from zero
 let currentScore = 0;
-
 
 //Define quiz questions
 const quizQuestions = [
   {
-
     question: "What is the name of this dish?",
     imgSrc: "",
     choices: ["Chicken rice", "Nasi Goreng", "Prata"],
@@ -41,13 +37,12 @@ const quizQuestions = [
     choices: ["Ying Yang", "Mr Bean", "Michael Jackson"],
     answer: "Ying Yang"
   },
+
 ]
 
 // Get elements from the dom
 
-const foodButton = document.getElementById("food-btn")
-const slangsButton = document.getElementById("slangs-btn")
-const generalButton = document.getElementById("general-btn")
+const playButton = document.getElementById("play-btn")
 const divTitle = document.querySelector(".singapore")
 const scorePage = document.querySelector(".quiz-score")
 
@@ -60,20 +55,45 @@ const answerButton3 = document.getElementById("answer3")
 
 scorePage.classList.add("hide")// hide score page
 
-foodButton.addEventListener("click", foodGame)
+//Create quiz score
+const createQuizScore = () => {
+  scorePage.innerText = ("You scored " + currentScore + " out of " + quizQuestions.length);
+};
 
-function foodGame() {
+
+playButton.addEventListener("click", playGame)
+
+function playGame() {
   currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
-  console.log("clicked");
-  foodButton.classList.add("hide")// hide food button after clicking
+  playButton.classList.add("hide")// hide food button after clicking
   questionContainerElement.classList.remove("hide") //to show the following question page
-  slangsButton.classList.add("hide")
-  generalButton.classList.add("hide")
   divTitle.classList.add("hide")
+  scorePage.classList.add("hide")
   nextQuestion();
   questionElement.innerText = quizQuestions[currentQuestion].question
 
+  }
+  // if(currentScore === )
+
+  // answerButtonsElement.addEventListener("click", checkAnswer)
+
+  const button = document.getElementById("answer-buttons")
+
+  button.addEventListener("click", buttonClick)
+
+  function buttonClick(e){
+  if (e.target.innerText === quizQuestions[currentQuestion].answer)
+{ 
+  console.log("true");
+  currentScore++
+} else {
+  console.log("false");
 }
+  }
+
+console.log(quizQuestions[currentQuestion].answer)
+console.log(currentScore);
+
 
 //Move forward in quiz
 answerButtonsElement.addEventListener("click", nextQuestion)
@@ -82,57 +102,20 @@ function nextQuestion() {
   currentQuestion++
   console.log(currentQuestion);
   if (currentQuestion >= quizQuestions.length) {
-    scorePage.classList.remove("hide") 
     question.style.display= "none";
     answerButtonsElement.style.display= "none";
-    
+    createQuizScore();
+    scorePage.classList.remove("hide")
   } else {
     questionElement.innerText = quizQuestions[currentQuestion].question
   
     for (let j = 0; j < quizQuestions[currentQuestion].choices.length; j++) // loop through the choices from quizQuestions
-    {
-     console.log(quizQuestions[currentQuestion].choices[j]);
+    // {
+    //  console.log(quizQuestions[currentQuestion].choices[j]);
      document.getElementById(`answer${j+1}`).innerText = quizQuestions[currentQuestion].choices[j]
      
     }
   }
   
-  }
-
   
-slangsButton.addEventListener("click", slangsGame)
-
-function slangsGame() {
-  foodButton.classList.add("hide")
-  questionContainerElement.classList.remove("hide")
-  slangsButton.classList.add("hide")
-  generalButton.classList.add("hide")
-  divTitle.classList.add("hide")
-  
-}
-
-generalButton.addEventListener("click", generalGame)
-
-function generalGame() {
-  foodButton.classList.add("hide")
-  questionContainerElement.classList.remove("hide")
-  slangsButton.classList.add("hide")
-  generalButton.classList.add("hide")
-  divTitle.classList.add("hide")
-
-}
-
-
-
-
-
-
-
-
-// assigning answers to each button for Q1
-// answerButton1.innerText = quizQuestions[0].choices[0] // show chicken rice option
-// answerButton2.innerText = quizQuestions[0].choices[1] // show Nasi goreng rice option
-// answerButton3.innerText = quizQuestions[0].choices[2] // show Prata rice option
-
-
 
