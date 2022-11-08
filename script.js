@@ -1,47 +1,52 @@
 let currentQuestion = 0; // start count from zero
 let currentScore = 0;
 
+let message = ["Great Job! ", "That's just Okay.. ", "You can do better! "]
+
+let gif = ["", "", "images/meh.gif"]
+
+
+
 //Define quiz questions
 const quizQuestions = [
   {
     question: "What is the name of this dish?",
-    imgSrc: "",
+    imgSrc: "images/prata.jpeg",
     choices: ["Chicken rice", "Nasi Goreng", "Prata"],
-    answer: "Chicken rice"
+    answer: "Prata"
   },
 
   {
     question: "This is the famous breakfast dish of Singapore",
-    imgSrc: "",
+    imgSrc: "images/yakun.jpeg",
     choices: ["Goreng Pisang", "Kaya Toast", "Pancakes"],
     answer: "Kaya Toast"
   },
 
   {
     question: "Which fruit in Singapore is known as the 'King of Fruits?'",
-    imgSrc: "",
+    imgSrc: "images/fruits.jpeg",
     choices: ["Durian", "Pineapple", "Mango"],
     answer: "Durian"
   },
 
   {
     question: "What is the name of the hawker centre in Singapore which was featured in a scene from the movie Crazy Rich Asians?",
-    imgSrc: "",
+    imgSrc: "images/newton.jpeg",
     choices: ["Newton Food Centre", "Chomp Chomp", "East Coast Lagoon"],
     answer: "Newton Food Centre"
   },
 
   {
     question: "This soy bean milk drink mixed with grass jelly is usually found at hawker centres and coffee shops. What is the colloquial name of this beverage?",
-    imgSrc: "",
+    imgSrc: "images/michael.jpeg",
     choices: ["Ying Yang", "Mr Bean", "Michael Jackson"],
-    answer: "Ying Yang"
+    answer: "Michael Jackson"
   },
 
 ]
 
 // Get elements from the dom
-
 const playButton = document.getElementById("play-btn")
 const divTitle = document.querySelector(".singapore")
 const scorePage = document.querySelector(".quiz-score")
@@ -52,15 +57,23 @@ const answerButtonsElement = document.getElementById("answer-buttons")
 const answerButton1 = document.getElementById("answer1")
 const answerButton2 = document.getElementById("answer2")
 const answerButton3 = document.getElementById("answer3")
+const picture = document.getElementById("picture")
 
-scorePage.classList.add("hide")// hide score page
+scorePage.classList.add("hide")// hide score page from main page
 
-//Create quiz score
+//Quiz score message
 const createQuizScore = () => {
-  scorePage.innerText = ("You scored " + currentScore + " out of " + quizQuestions.length);
+  if (currentScore < 2) {
+    scorePage.innerText = (gif[2] + message[2] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
+  } else if (currentScore === 2 || 3) {
+    scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
+  } else {
+    scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
+  }
 };
 
 
+//Play game
 playButton.addEventListener("click", playGame)
 
 function playGame() {
@@ -70,52 +83,40 @@ function playGame() {
   divTitle.classList.add("hide")
   scorePage.classList.add("hide")
   nextQuestion();
-  questionElement.innerText = quizQuestions[currentQuestion].question
 
-  }
-  // if(currentScore === )
-
-  // answerButtonsElement.addEventListener("click", checkAnswer)
-
-  const button = document.getElementById("answer-buttons")
-
-  button.addEventListener("click", buttonClick)
+  answerButtonsElement.addEventListener("click", buttonClick)
 
   function buttonClick(e){
-  if (e.target.innerText === quizQuestions[currentQuestion].answer)
-{ 
-  console.log("true");
-  currentScore++
-} else {
-  console.log("false");
-}
+  if (e.target.innerText === quizQuestions[currentQuestion].answer) // check if the answer button that's clicked is the same as correct answer
+  currentScore++ // add score to current score
+
   }
-
-console.log(quizQuestions[currentQuestion].answer)
-console.log(currentScore);
-
 
 //Move forward in quiz
 answerButtonsElement.addEventListener("click", nextQuestion)
 
 function nextQuestion() {
   currentQuestion++
-  console.log(currentQuestion);
   if (currentQuestion >= quizQuestions.length) {
+    createQuizScore();
     question.style.display= "none";
     answerButtonsElement.style.display= "none";
-    createQuizScore();
     scorePage.classList.remove("hide")
   } else {
     questionElement.innerText = quizQuestions[currentQuestion].question
-  
-    for (let j = 0; j < quizQuestions[currentQuestion].choices.length; j++) // loop through the choices from quizQuestions
-    // {
-    //  console.log(quizQuestions[currentQuestion].choices[j]);
-     document.getElementById(`answer${j+1}`).innerText = quizQuestions[currentQuestion].choices[j]
-     
+    for (let i = 0; i < quizQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
+     document.getElementById(`answer${i+1}`).innerText = quizQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
+    
+     if(currentQuestion > 0) {
+    picture.children[0].src = quizQuestions[currentQuestion].imgSrc
+    } else {
+    let img = document.createElement("img");
+    img.src = quizQuestions[currentQuestion].imgSrc
+    picture.appendChild(img)
     }
   }
+   }
+    }
   
-  
+
 
