@@ -3,8 +3,7 @@ let currentScore = 0;
 
 let message = ["Great Job! ", "That's just Okay.. ", "You can do better! "]
 
-let gif = ["", "", "images/meh.gif"]
-
+let gif = ["images/win.gif", "images/okay.gif", "images/meh.gif"]
 
 
 //Define quiz questions
@@ -63,15 +62,19 @@ scorePage.classList.add("hide")// hide score page from main page
 
 //Quiz score message
 const createQuizScore = () => {
+  picture.children[0].src = gif
+
   if (currentScore < 2) {
-    scorePage.innerText = (gif[2] + message[2] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
-  } else if (currentScore === 2 || 3) {
+    scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
+    picture.children[0].src = gif[2]
+  } else if (currentScore === 2 || currentScore === 3) {
+    picture.children[0].src = gif[1]
     scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
   } else {
+    picture.children[0].src = gif[0]
     scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + quizQuestions.length + " ! ");
   }
 };
-
 
 //Play game
 playButton.addEventListener("click", playGame)
@@ -106,6 +109,7 @@ function nextQuestion() {
     questionElement.innerText = quizQuestions[currentQuestion].question
     for (let i = 0; i < quizQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
      document.getElementById(`answer${i+1}`).innerText = quizQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
+  
     
      if(currentQuestion > 0) {
     picture.children[0].src = quizQuestions[currentQuestion].imgSrc
@@ -119,4 +123,5 @@ function nextQuestion() {
     }
   
 
+//Add more categories
 
