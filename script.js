@@ -344,10 +344,3 @@ function nextQuestion() {
       
           }
 
-          playAgainButton.addEventListener("click", playAgain) 
-
-          function playAgain() {
-    
-          
-            console.log("Hello");
-          }

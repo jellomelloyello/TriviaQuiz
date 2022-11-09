@@ -23,7 +23,7 @@ MVP - Minimum Viable Product
 ## A Brief History of the Project
 
 The idea for this project was inspired by my love for taking Buzzfeed quizzes.
-But as much as i love how random buzzfeed quizzes are, I wanted this game to be a relatable experience for those of us that grew up in Singapore. Hence I came up with a Singapore theme Trivia Game. From there, I came up with 3 categories (Food, General Knowledge and Singlish).
+But as much as i love how random buzzfeed quizzes can be, I wanted this game to be a relatable experience for those of us that grew up in Singapore. Hence I came up with a Singapore Theme Trivia Game. From there, I came up with 3 categories (Food, General Knowledge and Singlish).
 All the questions in the game are largely based on things I've experienced while growing up in Singapore to becoming a working adult. So I hope this game brings joy to you as well!	:smile_cat:
 
 ## User Story
@@ -40,6 +40,8 @@ User should be able to:
 
 ## Wireframe image
 
+![wireframe](https://user-images.githubusercontent.com/65665528/200787770-f98354ab-9b25-4fea-9d1a-58f251aba07d.jpg)
+
 
 ## Actual Game Images
 
@@ -51,8 +53,8 @@ User should be able to:
 <img width="514" alt="Screenshot 2022-11-09 at 4 36 43 PM" src="https://user-images.githubusercontent.com/65665528/200785179-e2702a95-9c0f-4386-a0c8-4230848e0909.png">
 
 
-
 ## Summary
+Overall, I enjoyed making this project from scratch. It was not easy to think like a programmer and translate my thoughts into code. It was especially tough in the beginning as there wasn't much references online for a quiz game like this. It got better after I start to break things down step by step and focusing on getting small components to work. 
 
 
 ## Resources & Credits 
