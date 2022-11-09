@@ -42,10 +42,20 @@ body {
   box-shadow:  3px 2px 19px -6px rgba(0,0,0,0.75);
 }
 
+
+#question {
+  font-size: 20px;
+  padding-top: 10px;
+  text-align: center;
+  
+ 
+}
 .singapore {
   font-size: 30px;
   text-align: center;
   padding-bottom: 20px;
+  font-family: 'Zen Antique Soft', serif;
+
 }
 .btn-grid {
   display: grid;
