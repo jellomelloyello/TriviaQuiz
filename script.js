@@ -49,7 +49,6 @@ const foodQuestions = [
 const foodButton = document.getElementById("food-btn")
 const generalButton = document.getElementById("general-btn")
 const singlishButton = document.getElementById("singlish-btn")
-const playAgainButton = document.getElementById("play-again")
 
 const divTitle = document.querySelector(".singapore")
 const scorePage = document.querySelector(".quiz-score")
@@ -67,7 +66,7 @@ scorePage.classList.add("hide")// hide score page from main page
 //Create Quiz Score Message
 const createQuizScore = () => {
   picture.children[0].src = gif
-
+  
   if (currentScore < 2) {
     scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + foodQuestions.length + " ! ");
     picture.children[0].src = gif[2]
@@ -85,22 +84,21 @@ const createQuizScore = () => {
 foodButton.addEventListener("click", foodGame)
 
 function foodGame() {
-  currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
-  foodButton.classList.add("hide")// hide food button after clicking
-  generalButton.classList.add("hide")
-  singlishButton.classList.add("hide")
-  questionContainerElement.classList.remove("hide") //to show the following question page
-  divTitle.classList.add("hide")
-  scorePage.classList.add("hide")
-  nextQuestion();
+currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
+foodButton.classList.add("hide")// hide food button after clicking
+generalButton.classList.add("hide")
+singlishButton.classList.add("hide")
+questionContainerElement.classList.remove("hide") //to show the following question page
+divTitle.classList.add("hide")
+scorePage.classList.add("hide")
+nextQuestion();
 
-  answerButtonsElement.addEventListener("click", buttonClick)
+answerButtonsElement.addEventListener("click", buttonClick)
 
-  function buttonClick(e){
+function buttonClick(e){
   if (e.target.innerText === foodQuestions[currentQuestion].answer) // check if the answer button that's clicked is the same as correct answer
   currentScore++ // add score to current score
-
-  }
+}
 
 //Move forward in quiz
 answerButtonsElement.addEventListener("click", nextQuestion)
@@ -108,31 +106,27 @@ answerButtonsElement.addEventListener("click", nextQuestion)
 function nextQuestion() {
   currentQuestion++
   if (currentQuestion >= foodQuestions.length) {
-    playAgainButton.classList.remove("hide")
-    createQuizScore();
-    // playAgain();
-    question.style.display= "none";
-    answerButtonsElement.style.display= "none";
-    scorePage.classList.remove("hide")
-  } else {
-    questionElement.innerText = foodQuestions[currentQuestion].question
-    for (let i = 0; i < foodQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
-     document.getElementById(`answer${i+1}`).innerText = foodQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
+  createQuizScore();
+  question.style.display= "none";
+  answerButtonsElement.style.display= "none";
+  scorePage.classList.remove("hide")
+} else {
+  questionElement.innerText = foodQuestions[currentQuestion].question
+  for (let i = 0; i < foodQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
+  document.getElementById(`answer${i+1}`).innerText = foodQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
   
-     if(currentQuestion > 0) {
+  if(currentQuestion > 0) {
     picture.children[0].src = foodQuestions[currentQuestion].imgSrc
-    } else {
+  } else {
     let img = document.createElement("img");
     img.src = foodQuestions[currentQuestion].imgSrc
     picture.appendChild(img)
-    }
   }
-   }
-
-    }
-
-  //Define General Trivia Questions
-    const generalQuestions = [
+}
+}
+}
+//Define General Trivia Questions
+const generalQuestions = [
   {
     question: "What is the name of this Singaporean Movie?",
     imgSrc: "images/homerun.jpeg",
@@ -151,7 +145,7 @@ function nextQuestion() {
     question: "Your boss ask you to order black coffee with evaporated milk and extra sugar, how would you order at the coffee shop?",
     imgSrc: "images/kopi.jpeg",
     choices: ["Kopi C", "Kopi O Gah Dai", "Kopi C Gah Dai"],
-    answer: "Durian"
+    answer: "Kopi C Gah Dai"
   },
 
   {
@@ -170,26 +164,25 @@ function nextQuestion() {
 
 ]
 
-  scorePage.classList.add("hide")// hide score page from main page
+scorePage.classList.add("hide")// hide score page from main page
 
-  //Create Quiz Score Message
-   let createGeneralQuizScore = () => {
-      picture.children[0].src = gif
+//Create Quiz Score Message
+let createGeneralQuizScore = () => {
+  picture.children[0].src = gif
+  if (currentScore < 2) {
+    scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
+    picture.children[0].src = gif[2]
+  } else if (currentScore === 2 || currentScore === 3) {
+    picture.children[0].src = gif[1]
+    scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
+  } else {
+    picture.children[0].src = gif[0]
+    scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
+  }
+};
     
-      if (currentScore < 2) {
-        scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
-        picture.children[0].src = gif[2]
-      } else if (currentScore === 2 || currentScore === 3) {
-        picture.children[0].src = gif[1]
-        scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
-      } else {
-        picture.children[0].src = gif[0]
-        scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + generalQuestions.length + " ! ");
-      }
-    };
-    
-    //Play General Trivia
-    generalButton.addEventListener("click", generalGame)
+//Play General Trivia
+generalButton.addEventListener("click", generalGame)
     
     function generalGame() {
       currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
@@ -208,139 +201,125 @@ function nextQuestion() {
       currentScore++ // add score to current score
     
       }
-    
-    //Move forward in quiz
-    answerButtonsElement.addEventListener("click", nextQuestion)
-    
-    function nextQuestion() {
-      currentQuestion++
-      if (currentQuestion >= generalQuestions.length) {
-        createQuizScore();
-        question.style.display= "none";
-        answerButtonsElement.style.display= "none";
-        scorePage.classList.remove("hide")
-      } else {
-        questionElement.innerText = generalQuestions[currentQuestion].question
-        for (let i = 0; i < generalQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
-         document.getElementById(`answer${i+1}`).innerText = generalQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
-      
-        
-         if(currentQuestion > 0) {
-        picture.children[0].src = generalQuestions[currentQuestion].imgSrc
-        } else {
-        let img = document.createElement("img");
-        img.src = generalQuestions[currentQuestion].imgSrc
-        picture.appendChild(img)
-        }
-      }
-       }
-    
-        }
+//Move forward in quiz
 
-         
-    //Define Singlish Trivia Questions
-    const singlishQuestions = [
-      {
-        question: "Which of the following Singlish words do not make any sense in this sentence: I don’t have ______",
-        imgSrc: "",
-        choices: ["Lah ", "Lor", "Wah"],
-        answer: "Wah"
-      },
-    
-      {
-        question: "Fill in the blanks: Kanchiong _____Blur _______",
-        imgSrc: "",
-        choices: ["Spider, Sotong", "King Kong, Queen", "King, Ayam "],
-        answer: "Spider, Sotong"
-      },
-    
-      {
-        question: "What does the word 'Alamak' means?",
-        imgSrc: "",
-        choices: ["oh man/ oh my gosh", "Oh", "Okay"],
-        answer: "Oh man/ oh my gosh"
-      },
-    
-      {
-        question: "How would you use this word correctly: 'Cheem' ?",
-        imgSrc: "",
-        choices: ["This place is so cheem", "This exam question is so cheem", "This shop is so cheem"],
-        answer: "This place is so cheem"
-      },
-    
-      {
-        question: "What does “steady pom pi pi” mean?",
-        imgSrc: "",
-        choices: ["Someone who can balance very well", "Someone who is calm and composed while handling a challenging task", "Someone who runs fast"],
-        answer: "Someone who is calm and composed while handling a challenging task"
-      },
-    
-    ]
-  
-      scorePage.classList.add("hide")// hide score page from main page
-  
-      //Create Quiz Score Message
-      let createSinglishQuizScore = () => {
-        picture.children[0].src = gif
-      
-        if (currentScore < 2) {
-          scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
-          picture.children[0].src = gif[2]
-        } else if (currentScore === 2 || currentScore === 3) {
-          picture.children[0].src = gif[1]
-          scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
-        } else {
-          picture.children[0].src = gif[0]
-          scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
-        }
-      };
-        
-      //Play General Trivia
-      singlishButton.addEventListener("click", singlishGame)
-      
-      function singlishGame() {
-        currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
-        foodButton.classList.add("hide")// hide food button after clicking
-        generalButton.classList.add("hide")
-        singlishButton.classList.add("hide")
-        questionContainerElement.classList.remove("hide") //to show the following question page
-        divTitle.classList.add("hide")
-        scorePage.classList.add("hide")
-        nextQuestion();
-      
-        answerButtonsElement.addEventListener("click", buttonClick)
-      
-        function buttonClick(e){
-        if (e.target.innerText === singlishQuestions[currentQuestion].answer) // check if the answer button that's clicked is the same as correct answer
-        currentScore++ // add score to current score
-      
-        }
-        
-      //Move forward in quiz
-      answerButtonsElement.addEventListener("click", nextQuestion)
-      
-      function nextQuestion() {
-        currentQuestion++
-        if (currentQuestion >= singlishQuestions.length) {
-          createQuizScore();
-          question.style.display= "none";
-          answerButtonsElement.style.display= "none";
-          scorePage.classList.remove("hide")
-        } else {
-          questionElement.innerText = singlishQuestions[currentQuestion].question
-          for (let i = 0; i < generalQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
-            document.getElementById(`answer${i+1}`).innerText = singlishQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
-        
-        
-          if(currentQuestion > 0) {
-        picture.children[0].src = singlishQuestions[currentQuestion].imgSrc
-        } else {
-        let img = document.createElement("img");
-        img.src = singlishQuestions[currentQuestion].imgSrc
-        picture.appendChild(img)
-          }
-        }
-          }
-      
-          }
+answerButtonsElement.addEventListener("click", nextQuestion)
 
+function nextQuestion() {
+  currentQuestion++
+  if (currentQuestion >= generalQuestions.length) {
+    createQuizScore();
+    question.style.display= "none";
+    answerButtonsElement.style.display= "none";
+    scorePage.classList.remove("hide")
+  } else {
+    questionElement.innerText = generalQuestions[currentQuestion].question
+    for (let i = 0; i < generalQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
+    document.getElementById(`answer${i+1}`).innerText = generalQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
+    
+    if(currentQuestion > 0) {
+      picture.children[0].src = generalQuestions[currentQuestion].imgSrc
+    } else {
+      let img = document.createElement("img");
+      img.src = generalQuestions[currentQuestion].imgSrc
+      picture.appendChild(img)
+    }
+  }
+}
+}
+
+//Define Singlish Trivia Questions
+const singlishQuestions = [
+  {
+    question: "Which of the following Singlish words do not make any sense in this sentence: I don’t have ______",
+    imgSrc: "",
+    choices: ["Lah ", "Lor", "Wah"],
+    answer: "Wah"
+  },
+  {
+    question: "Fill in the blanks: Kanchiong _____Blur _______",
+    imgSrc: "",
+    choices: ["Spider, Sotong", "King Kong, Queen", "King, Ayam "],
+    answer: "Spider, Sotong"
+  },
+  {
+    question: "'Sure can one' means...",
+    imgSrc: "",
+    choices: ["Are you sure?", "Do it once", "Definitely can(do it)"],
+    answer: "Definitely can(do it)"
+  },
+  {
+    question: "How would you use this word correctly: 'Cheem' ?",
+    imgSrc: "",
+    choices: ["This place is so cheem", "This exam question is so cheem", "This shop is so cheem"],
+    answer: "This exam question is so cheem"
+  },
+  {
+    question: "What does “steady pom pi pi” mean?",
+    imgSrc: "",
+    choices: ["Someone who can balance very well", "Someone who is calm and composed while handling a challenging task", "Someone who runs fast"],
+    answer: "Someone who is calm and composed while handling a challenging task"
+  },
+]
+scorePage.classList.add("hide")// hide score page from main page
+
+//Create Quiz Score Message
+let createSinglishQuizScore = () => {
+  picture.children[0].src = gif
+  if (currentScore < 2) {
+    scorePage.innerText = (message[2] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
+    picture.children[0].src = gif[2]
+  } else if (currentScore === 2 || currentScore === 3) {
+    picture.children[0].src = gif[1]
+    scorePage.innerText = (message[1] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
+  } else {
+    picture.children[0].src = gif[0]
+    scorePage.innerText = (message[0] + "You scored " + currentScore + "/" + singlishQuestions.length + " ! ");
+  }
+};
+        
+//Play Singlish Trivia
+singlishButton.addEventListener("click", singlishGame)
+
+function singlishGame() {
+  currentQuestion = -1; // set to -1 because in the nextquestion()function below, currentQuestion is set as currentQuestion++ 
+  foodButton.classList.add("hide")// hide food button after clicking
+  singlishButton.classList.add("hide")
+  generalButton.classList.add("hide")
+  questionContainerElement.classList.remove("hide") //to show the following question page
+  divTitle.classList.add("hide")
+  scorePage.classList.add("hide")
+  nextQuestion();
+  
+  
+answerButtonsElement.addEventListener("click", buttonClick)
+
+function buttonClick(e){
+  if (e.target.innerText === singlishQuestions[currentQuestion].answer) // check if the answer button that's clicked is the same as correct answer
+  currentScore++ // add score to current score
+}
+//Move forward in quiz
+answerButtonsElement.addEventListener("click", nextQuestion)
+function nextQuestion() {
+  currentQuestion++
+  if (currentQuestion >= singlishQuestions.length) {
+    createQuizScore();
+    question.style.display= "none";
+    answerButtonsElement.style.display= "none";
+    scorePage.classList.remove("hide")
+  } else {
+    questionElement.innerText = singlishQuestions[currentQuestion].question
+    for (let i = 0; i < generalQuestions[currentQuestion].choices.length; i++) // loop through the choices from quizQuestions
+    document.getElementById(`answer${i+1}`).innerText = singlishQuestions[currentQuestion].choices[i] // assign choices to each answer buttons
+        
+        
+  if(currentQuestion > 0) {
+    picture.children[0].src = singlishQuestions[currentQuestion].imgSrc
+  } else {
+    let img = document.createElement("img");
+    img.src = singlishQuestions[currentQuestion].imgSrc
+    picture.appendChild(img)
+}
+}
+}
+}
